@@ -30,6 +30,11 @@ jobs:
     needs: detect-changed-lambdas
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        filename: ${{ fromJson(needs.detect-changed-lambdas.outputs.lambdas_files) }}
+      fail-fast: false
+      
     steps:
     - run: echo Run ${{ fromJson(needs.detect-changed-lambdas.outputs.lambdas_files) }}
     - run: date
