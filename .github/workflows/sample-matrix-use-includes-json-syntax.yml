@@ -18,7 +18,7 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     steps:
-    - run: echo Run ${{ job1.outputs }}
+    - run: echo Run ${{ jobs.job1.outputs }}
     - run: date
     - run: sleep 1
     - run: date
