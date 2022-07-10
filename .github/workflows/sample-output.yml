@@ -1,0 +1,28 @@
+name: Sample Run Max 2 Jobs In Parallel
+on: 
+  push:
+      branches:
+        - '*'
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+
+    outputs:
+      lambdas_files: ${{ steps.detect_changes.outputs.lambdas_files }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      - name: Detect changed Lambda files
+        uses: dorny/paths-filter@v2
+        id: detect_changes
+        with:
+          base: 'TECHM-01_test'
+          list-files: 'json'
+          filters: |
+            lambdas: 'lambda/**'
+    - run: echo Run ${{ fromJson(job1.outputs.lambdas_files) }}
+    - run: date
+    - run: sleep 5 # Sleep so that we can see a difference in timestamp on the last run
+    - run: date
