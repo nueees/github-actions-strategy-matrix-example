@@ -1,6 +1,5 @@
 name: Sample Matrix Parallel
 on: 
-on: 
   push:
       branches:
         - '*'
