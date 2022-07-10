@@ -2,7 +2,7 @@ name: Sample Should Fail All Runs
 on: 
   push:
       branches:
-        - 'master'
+        - '*'
 jobs:
   job:
     runs-on: ubuntu-latest
