@@ -36,7 +36,13 @@ jobs:
       fail-fast: false
       
     steps:
-    - run: echo Run ${{ fromJson(needs.detect-changed-lambdas.outputs.lambdas_files) }}
-    - run: date
-    - run: sleep 5 # Sleep so that we can see a difference in timestamp on the last run
-    - run: date
+    
+    - name: Build Docker image and push to AWS ECR
+      id: build_and_push
+      env:
+        ECR_REGISTRY: ${{ steps.login_ecr.outputs.registry }}
+        ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
+        IMAGE_TAG: '${{ env.DOCKER_TAG }}'
+        MATRIX_FILENAME: ${{ matrix.filename }}
+        
+      run: echo Run ${MATRIX_FILENAME}
