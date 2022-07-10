@@ -1,5 +1,8 @@
 name: Sample Should Fail Run 1 Only
-on: push
+on: 
+push:
+    branches:
+      - 'master'
 jobs:
   job:
     runs-on: ubuntu-latest
