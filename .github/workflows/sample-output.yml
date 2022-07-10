@@ -23,7 +23,13 @@ jobs:
           list-files: 'json'
           filters: |
             lambdas: 'lambda/**'
-      - run: echo Run ${{ fromJson(detect-changed-lambdas.outputs.lambdas_files) }}
+
+            
+  apply-changed-lambdas:
+    name: Build Docker images for changed Lambdas
+    needs: detect-changed-lambdas
+
+      - run: echo Run ${{ fromJson(needs.detect-changed-lambdas.outputs.lambdas_files) }}
       - run: date
       - run: sleep 5 # Sleep so that we can see a difference in timestamp on the last run
       - run: date
